@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Velocity Network Foundation Push Gateway Protocol",
+    "version": "1.0",
+    "description": "The Velocity Network Foundation Push Gateway Protocol that wallet providers must implement"
+  },
+  "servers": [],
+  "paths": {
+    "/push": {
+      "post": {
+        "summary": "Push a new notification",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "get-push",
+        "description": "Creates a new push notification. Send again if you dont receive a response",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "generate an id to support deduplication"
+                  },
+                  "pushToken": {
+                    "type": "string",
+                    "description": "the push token for this group of devices"
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Data is used for data that is not private to be sent. Coming soon - support for encrypted data that is only accessible once the app boots.",
+                    "properties": {
+                      "errorCode": {
+                        "type": "string",
+                        "description": "optional error code to send back"
+                      }
+                    }
+                  },
+                  "encryptedData": {
+                    "type": "string",
+                    "description": "e2e encrypted version of `data`. holder app should send it under `data.encrypted` property"
+                  },
+                  "notification": {
+                    "type": "object",
+                    "required": [
+                      "title",
+                      "body"
+                    ],
+                    "additionalProperties": false,
+                    "description": "the notification to be displayed by the default push message handler (eg. fcm)",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "pushToken",
+                  "data",
+                  "notification"
+                ]
+              }
+            }
+          },
+          "description": "The message that should be sent."
+        }
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
