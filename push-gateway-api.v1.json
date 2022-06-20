@@ -40,10 +40,44 @@
                   "data": {
                     "type": "object",
                     "description": "Data is used for data that is not private to be sent. Coming soon - support for encrypted data that is only accessible once the app boots.",
+                    "required": [
+                      "notificationType"
+                    ],
                     "properties": {
-                      "errorCode": {
+                      "notificationType": {
                         "type": "string",
-                        "description": "optional error code to send back"
+                        "enum": [
+                          "CredentialRevoked",
+                          "CredentialReplaced",
+                          "NewOffersReady",
+                          "NoOffersFound"
+                        ],
+                        "description": "the notification type"
+                      },
+                      "issuer": {
+                        "type": "string",
+                        "description": "the issuer's DID"
+                      },
+                      "exchangeId": {
+                        "type": "string",
+                        "description": "the exchange id to which this push corresponds to"
+                      },
+                      "serviceEndpoint": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "the service endpoint to find out more information about this message. Should be verified on the Issuers DID Document"
+                      },
+                      "credentialTypes": {
+                        "type": "string",
+                        "description": "the credential types of the offers or credentials"
+                      },
+                      "credentialId": {
+                        "type": "string",
+                        "description": "the credential id being revoked or replaced"
+                      },
+                      "replacementCredentialType": {
+                        "type": "string",
+                        "description": "the credential type of the new credential when the notificationType=CredentialReplaced"
                       }
                     }
                   },
@@ -53,12 +87,12 @@
                   },
                   "notification": {
                     "type": "object",
+                    "additionalProperties": false,
+                    "description": "the notification to be displayed by the default push message handler (eg. fcm)",
                     "required": [
                       "title",
                       "body"
                     ],
-                    "additionalProperties": false,
-                    "description": "the notification to be displayed by the default push message handler (eg. fcm)",
                     "properties": {
                       "title": {
                         "type": "string"
@@ -71,8 +105,9 @@
                       }
                     }
                   },
-                  "": {
-                    "type": "string"
+                  "message": {
+                    "type": "string",
+                    "description": "An optional message. The wallet developer should have a default message that it uses for each notification type. An issuer may send a message with more specific information. The wallet developer can choose to use this message instead"
                   }
                 },
                 "required": [
@@ -81,6 +116,71 @@
                   "data",
                   "notification"
                 ]
+              },
+              "examples": {
+                "Revocation Example": {
+                  "value": {
+                    "id": "8wMT_9O0mZLck8JELBDV6",
+                    "pushToken": "62",
+                    "data": {
+                      "exchangeId": "62afffc898ca4264f5d7352d",
+                      "notificationType": "CredentialRevoked",
+                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "credentialId": "did:velocity:v2:6GiWWYRSys1U2j5I6gqq7olyJw0M3aqZcuHsST0",
+                      "credentialTypes": [
+                        "LicenseV1.0"
+                      ],
+                      "count": 1
+                    }
+                  }
+                },
+                "Replacement Example": {
+                  "value": {
+                    "id": "8wMT_9O0mZLck8JELBDV7",
+                    "pushToken": "63",
+                    "data": {
+                      "exchangeId": "62afffc898ca4264f5d7352d",
+                      "notificationType": "CredentialRevoked",
+                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "credentialId": "did:velocity:v2:6GiWWYRSys1U2j5I6gqq7olyJw0M3aqZcuHsST1",
+                      "credentialTypes": [
+                        "EmploymentCurrentV1.1"
+                      ],
+                      "replacementCredentialType": [
+                        "EmploymentPastV1.1"
+                      ],
+                      "count": 1
+                    }
+                  }
+                },
+                "New Offers Ready": {
+                  "value": {
+                    "id": "8wMT_9O0mZLck8JELBDV8",
+                    "pushToken": "64",
+                    "data": {
+                      "exchangeId": "62afffc898ca4264f5d7352d",
+                      "notificationType": "NewOffersReady",
+                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "serviceEndpoint": "https://agent.example.com",
+                      "credentialTypes": [
+                        "EmploymentCurrentV1.1"
+                      ],
+                      "count": 1
+                    }
+                  }
+                },
+                "No Offers Found": {
+                  "value": {
+                    "id": "8wMT_9O0mZLck8JELBDV9",
+                    "pushToken": "65",
+                    "data": {
+                      "exchangeId": "62afffc898ca4264f5d7352d",
+                      "notificationType": "NoOffersFound",
+                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "serviceEndpoint": "https://agent.example.com"
+                    }
+                  }
+                }
               }
             }
           },
