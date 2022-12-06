@@ -50,7 +50,8 @@
                           "CredentialRevoked",
                           "CredentialReplaced",
                           "NewOffersReady",
-                          "NoOffersFound"
+                          "NoOffersFound",
+                          "PresentationVerified"
                         ],
                         "description": "the notification type"
                       },
