@@ -126,7 +126,7 @@
                     "data": {
                       "exchangeId": "62afffc898ca4264f5d7352d",
                       "notificationType": "CredentialRevoked",
-                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "issuer": "did:web:example.com",
                       "credentialId": "did:velocity:v2:6GiWWYRSys1U2j5I6gqq7olyJw0M3aqZcuHsST0",
                       "credentialTypes": [
                         "LicenseV1.0"
@@ -142,7 +142,7 @@
                     "data": {
                       "exchangeId": "62afffc898ca4264f5d7352d",
                       "notificationType": "CredentialRevoked",
-                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "issuer": "did:web:example.com",
                       "credentialId": "did:velocity:v2:6GiWWYRSys1U2j5I6gqq7olyJw0M3aqZcuHsST1",
                       "credentialTypes": [
                         "EmploymentCurrentV1.1"
@@ -161,7 +161,7 @@
                     "data": {
                       "exchangeId": "62afffc898ca4264f5d7352d",
                       "notificationType": "NewOffersReady",
-                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "issuer": "did:web:example.com",
                       "serviceEndpoint": "https://agent.example.com",
                       "credentialTypes": [
                         "EmploymentCurrentV1.1"
@@ -177,7 +177,7 @@
                     "data": {
                       "exchangeId": "62afffc898ca4264f5d7352d",
                       "notificationType": "NoOffersFound",
-                      "issuer": "did:ion:EiBbvWpBHPql_2W9sObr4vPFl9k9InEDYOEDXvPPRDRyBg",
+                      "issuer": "did:web:example.com",
                       "serviceEndpoint": "https://agent.example.com"
                     }
                   }
